@@ -79,7 +79,7 @@ void setup() {
 
   Serial.begin(9600);
 
-  // The Wi-FI library has auto-reocnnect. So we simply call it in setup() and there is no need to always check the conenction in loop()
+  // The Wi-Fi library has auto-reconnect. So we simply call it in setup() and there is no need to always check the conenction in loop()
   connectWifi();
 
   mqttClient.setServer(mqttServer, mqttPort);
