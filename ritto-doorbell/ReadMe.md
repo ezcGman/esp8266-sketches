@@ -15,7 +15,7 @@ Whenever somebodz rings, EXT will go high to ~5V for ~5 seconds and drop to 0V a
 2. Simply use a transistor to bridge any GPIO (which we will set PULLUP in code before) to LOW / GND, so we don't have any hassle with caring about the voltage
 I've also went with #2, like the people I linked in the disclaimer above. See the circuit diagram on how to wire it.
 
-So whenever EXT goes to 5V, the transistor will switch and pull GPIO4 to GND. I react on this on code which will then send a MQTT message to my Home Assistant (HA). The the "sensor.yaml" and "automations.yaml" for the HA configuration.
+So whenever EXT goes to 5V, the transistor will switch and pull GPIO4 (note that GPIO4 is labelled "D2" on the NodeMCU boards) to GND. I react on this on code which will then send a MQTT message to my Home Assistant (HA). The the "sensor.yaml" and "automations.yaml" for the HA configuration.
 *Note: You will need the Mosquitto broker add-on in HA to make this work (or have any other MQTT broker in your home network)*
 
 ## Known issues & versions
