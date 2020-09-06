@@ -1,0 +1,8 @@
+- platform: mqtt
+  name: "[Corridor] Doorbell"
+  device_class: sound
+  state_topic: "home-assistant/doorbell/state"
+  payload_on: "on"
+  payload_off: "off"
+  # availability_topic: "home-assistant/doorbell/availability"
+  off_delay: 3
