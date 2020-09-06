@@ -30,8 +30,8 @@ So the solutions can be version (or better ideas) 2, 3, 4 and/or 5:
 ### Version 2
 The ESP can save power by sending it into various sleep modes. In deep sleep it will consume only around 20µa, so a battery back would last for months! But if we send it to deep sleep, we have two issues to solve:
 1. We need to wake it up. We can wake it up by either:
-  1. Pulling the RST pin LOW / to GND
-  2. Pulling the EN pin HIGH and release it again (the ESP will only wake up after releasing the pin!)
+    1. Pulling the RST pin LOW / to GND
+    2. Pulling the EN pin HIGH and release it again (the ESP will only wake up after releasing the pin!)
 2. We need to dramatically increase the setup() routine time, as connecting to Wi-Fi takes around 3 seconds, then MQTT, then sending the message to HA, then have HA triggering automations... All of this takes time and for opening the door we shouldn|t get the notification 5+ seconds after somebody rang
 
 While I have solve #2 and could lower the setup() routine to ~500-800ms, I could (not yet) solve #1. I am still working on it...
