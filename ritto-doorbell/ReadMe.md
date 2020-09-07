@@ -10,7 +10,7 @@ I don't take credits for the idea of this solution, as I just followed the findi
 The Ritto Twinbus doorbell has a connector for supporting external doorbells using their extension module "Ritto 1764600": https://eref.se.com/de/de/scope/product-pdf/1764600
 
 We don't need this module, but we can use the connector pins and grab the signal whenever somebody rings the doorbell by simply soldering two wires to EXT and GND.
-Whenever somebodz rings, EXT will go high to ~5V for ~5 seconds and drop to 0V again after. 5V would be too much for any GPIO pin of the ESP8266 to handle and we would roast it. So we can either>
+Whenever somebodz rings, EXT will go high to ~5V (I actually measured 4,937V@0,023A) for ~5 seconds and drop to 0V again after. 5V would be too much for any GPIO pin of the ESP8266 to handle and we would roast it. So we can either:
 1. Lower the 5V to ~3V using a few resistors put in a row, or
 2. Simply use a transistor to bridge any GPIO (which we will set PULLUP in code before) to LOW / GND, so we don't have any hassle with caring about the voltage
 I've also went with #2, like the people I linked in the disclaimer above. See the circuit diagram on how to wire it.
