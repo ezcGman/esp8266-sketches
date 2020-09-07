@@ -1,6 +1,9 @@
 #include <ESP8266WiFi.h>
+// Using https://pubsubclient.knolleary.net/
 #include <PubSubClient.h>
 #include <SimpleTimer.h>
+// Using https://github.com/mcxiaoke/ESPDateTime
+#include <DateTime.h>
 
 
 const char* ssid     = "not-gonna-tell-ya";
@@ -23,16 +26,30 @@ SimpleTimer timer;
 
 void resetTrigger() {
   doorbellRang = false;
+
+  mqttClient.publish("home-assistant/doorbell/state", "off");
 }
 
 void resetLED() {
   digitalWrite(LED_BUILTIN, HIGH);
 }
 
+void mqttAvailability() {
+  mqttClient.publish("home-assistant/doorbell/availability", "online");
+  String strDateTime = DateTime.format("%Y-%m-%dT%H:%M:%S%z");
+  char charDateTime[strDateTime.length()];
+  strDateTime.toCharArray(charDateTime, strDateTime.length());
+  mqttClient.publish("home-assistant/doorbell/lastUpdated", charDateTime);
+
+  timer.setTimeout(60000, mqttAvailability);
+}
+
 void connectWifi() {
   if (WiFi.status() != WL_CONNECTED) {
     int wifiConnTries = 0;
 
+    WiFi.mode(WIFI_STA);
+    WiFi.setSleepMode(WIFI_LIGHT_SLEEP);
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED && wifiConnTries < maxConnTries) {
       wifiConnTries++;
@@ -79,11 +96,15 @@ void setup() {
 
   Serial.begin(9600);
 
-  // The Wi-Fi library has auto-reconnect. So we simply call it in setup() and there is no need to always check the conenction in loop()
+  // The Wi-FI library has auto-reocnnect. So we simply call it in setup() and there is no need to always check the conenction in loop()
   connectWifi();
 
   mqttClient.setServer(mqttServer, mqttPort);
   connectMqtt();
+
+  DateTime.begin();
+
+  mqttAvailability();
 }
 
 void loop() {
@@ -100,5 +121,5 @@ void loop() {
     timer.setTimeout(5000, resetTrigger);
     timer.setTimeout(3000, resetLED);
   }
+
   timer.run();
-}
