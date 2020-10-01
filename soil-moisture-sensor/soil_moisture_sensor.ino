@@ -92,7 +92,7 @@ void setup() {
   char charMoistureValue[4];
   int intMoistureValue = soilMoistureValue;
   sprintf(charMoistureValue, "%d", intMoistureValue);
-  mqttClient.publish("home-assistant/plant-sensors/herbals/moisture", charMoistureValue);
+  mqttClient.publish("home-assistant/plant-sensors/herbals/moisture", charMoistureValue, true);
 
   int isWet = 1;
   if(soilMoistureValue > plantDryThreshold) {
@@ -102,7 +102,7 @@ void setup() {
 
   char charIsWet[1];
   sprintf(charIsWet, "%d", isWet);
-  mqttClient.publish("home-assistant/plant-sensors/herbals/wet", charIsWet);
+  mqttClient.publish("home-assistant/plant-sensors/herbals/wet", charIsWet, true);
 
   DateTime.begin();
   if (!DateTime.isTimeValid()) {
@@ -111,7 +111,7 @@ void setup() {
   String strDateTime = DateTime.format("%Y-%m-%dT%H:%M:%S%z");
   char charDateTime[strDateTime.length()];
   strDateTime.toCharArray(charDateTime, strDateTime.length());
-  mqttClient.publish("home-assistant/plant-sensors/herbals/lastUpdated", charDateTime);
+  mqttClient.publish("home-assistant/plant-sensors/herbals/lastUpdated", charDateTime, true);
 
   digitalWrite(enableSensorPin, LOW);
 
