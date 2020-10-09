@@ -21,12 +21,12 @@ const int airValue = 910;
 const int waterValue = 412;
 // The original script devides into "Very wet", "Wet" and "Dry". But we will only care about "Dry", but we keep the sectioning
 // int intervals = (airValue - waterValue) / 3;
-// I on the other hand though that maybe 60% on the way to the air value may be considered "dry":
+// I on the other hand thought that maybe 60% on the way to the air value may be considered "dry":
 // const int plantDryThreshold = ((airValue - waterValue) * 0.6) + waterValue;
-// But my girlfriend said "This now is dry!". And "this" was around the 570 mark
-// We could set this a bit lower to e.g. 550 to have alerting systems (like HA) trigger earlier, but actually:
-// That should be in the alerting systems business logic. we define when it is dry and girlfriends said: "Now!". And girls are always right ¯\_(ツ)_/¯
-const int plantDryThreshold = 570;
+// But my girlfriend said "This now is dry!". And "this" was around the 570 mark. And girls are always right ¯\_(ツ)_/¯
+// Even if I think that we should set the threshold to 570 then, I still go ahead and set it to 550, to have the alert trigger a bit earlier.
+// Yes, that should be in the alerting systems business logic, but we use this boolean flag in the alerting. So we set this flag a little earlier.
+const int plantDryThreshold = 550;
 
 const byte maxConnTries = 15;
 
