@@ -19,9 +19,14 @@ const byte enableSensorPin = D2;
 // Measured myself, using this guide: https://media.digikey.com/pdf/Data%20Sheets/DFRobot%20PDFs/SEN0193_Web.pdf
 const int airValue = 910;
 const int waterValue = 412;
-// The original script devides into "Very wet", "Wet" and "Dry". But we will only care about "Dry"
+// The original script devides into "Very wet", "Wet" and "Dry". But we will only care about "Dry", but we keep the sectioning
 // int intervals = (airValue - waterValue) / 3;
-const int plantDryThreshold = ((airValue - waterValue) * 0.6) + waterValue;
+// I on the other hand though that maybe 60% on the way to the air value may be considered "dry":
+// const int plantDryThreshold = ((airValue - waterValue) * 0.6) + waterValue;
+// But my girlfriend said "This now is dry!". And "this" was around the 570 mark
+// We could set this a bit lower to e.g. 550 to have alerting systems (like HA) trigger earlier, but actually:
+// That should be in the alerting systems business logic. we define when it is dry and girlfriends said: "Now!". And girls are always right ¯\_(ツ)_/¯
+const int plantDryThreshold = 570;
 
 const byte maxConnTries = 15;
 
@@ -74,6 +79,18 @@ void connectMqtt() {
   }
 }
 
+// Sometimes values can go over or under our thresholds, so we just cap them on both ends to have meaningful percentage values
+float sanitizeSoilMoistureValue(float soilMoistureValue) {
+  if (soilMoistureValue < waterValue && soilMoistureValue > 0) {
+    soilMoistureValue = waterValue;
+  }
+  else if (soilMoistureValue > airValue) {
+    soilMoistureValue = airValue;
+  }
+
+  return soilMoistureValue;
+}
+
 void setup() {
   pinMode(enableSensorPin, OUTPUT);
   digitalWrite(enableSensorPin, HIGH);
@@ -88,11 +105,19 @@ void setup() {
 
   float soilMoistureValue = analogRead(analogMoisturePin);
   Serial.println(soilMoistureValue);
+  soilMoistureValue = sanitizeSoilMoistureValue(soilMoistureValue);
 
   char charMoistureValue[4];
   int intMoistureValue = soilMoistureValue;
   sprintf(charMoistureValue, "%d", intMoistureValue);
   mqttClient.publish("home-assistant/plant-sensors/herbals/moisture", charMoistureValue, true);
+
+  float wetPercentage = 100 - ((soilMoistureValue - waterValue) / (airValue - waterValue) * 100);
+  Serial.println(wetPercentage);
+
+  char charWetPercentage[7];
+  sprintf(charWetPercentage, "%.2f", wetPercentage);
+  mqttClient.publish("home-assistant/plant-sensors/herbals/wet-percentage", charWetPercentage, true);
 
   int isWet = 1;
   if(soilMoistureValue > plantDryThreshold) {
@@ -120,4 +145,4 @@ void setup() {
 }
 
 void loop() {
-} 
+}
