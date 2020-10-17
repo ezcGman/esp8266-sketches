@@ -38,6 +38,7 @@ As I know that obvious things don't neccessarily need to be obvious to everybody
     * And from the transistors collector to the soil moisture sensor.
 * From GPIO4 (I took GPIO4, you can choose whatever GPIO you want) through a 1k resistor to the transistors base.
 * To be able to use timed(!) deep sleep, you need to connect RST (the reset pin) to GPIO16. This if you do a timed deep sleep in code, the ESP will pull the GPIO16 to LOW for a brief moment whenever this time has passed. And this will then pull RST low, which will make the ESP restart.
+
 Last piece is the sensors analog out:
 
 ### ESP-12 and analog signals
