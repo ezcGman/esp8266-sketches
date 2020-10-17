@@ -58,3 +58,7 @@ This is now the simple part: If you're familiar with ESP coding, this should all
 * It also has some percentage calculation, which is based on my own measurements of the sensor, which is the "air value", so sensor just laying around and the "water value", which is the sensor put into a glas of clear water.
 * Another thing is a "dry/wet threshold", which is based on my girlfriend: She said "Andy, this is now dry!". And I took this as the threshold (minus a little bit for earlier alerts) for consodering a plant being dry. Note that this may very much differentiate by plant and flower soil used.
 * Ultimately not needed, but for easier checking if the battery is empty (=no signal is sent anymore): A "last updated" timestamp also dropped into the MQTT topic
+
+## Possible improvements
+### More reliable analog readings
+To get a more reliable and less fluctuating signal, you can draw a 100nF capacitor between the sensors analog output and GND. I have not tried this yet, but will soon do and report my results 
