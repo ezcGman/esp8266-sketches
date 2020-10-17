@@ -28,16 +28,16 @@ Also: There is a reason why they are called **dev**boards ;) They are not really
 https://github.com/gman-php/esp8266-sketches/blob/master/soil-moisture-sensor/circuit-diagram.png
 As I know that obvious things don't neccessarily need to be obvious to everybody, I gonna walk you through what I'm doing here:
 * The power source: The ESP-12 can only work with 3.3V, not more, maybe a little, little less. And a 3.3V power source is not easy to find, so most people will use step down converters to power an ESP-12. But the holy grail are LiFePO4 batteries: They come in AA size and provide a straight and good 3.2V to easily power an ESP-12.
-** From the batteries plus side, we will need to draw one line to the sensors VCC and two to the ESP:
-*** One to VCC and
-*** One to EN pin, as this is like the "on switch" of the ESP: It needs to be pulled high to turn on the ESP
-** GND needs to go to a few more places:
-*** ESP GND, obviously
-*** GPIO15 also needs to pulled low / to GND, as withour it, the ESP would work in "SD card boot mode". "Nobody" wants/needs that, so pull this pin low.
-*** To the transistors emitter
-*** And from the transistors collector to the soil moisture sensor.
-** From GPIO4 (I took GPIO4, you can choose whatever GPIO you want) through a 1k resistor to the transistors base. With this
-** To be able to use timed(!) deep sleep, you need to connect RST (the reset pin) to GPIO16. This if you do a timed deep sleep in code, the ESP will pull the GPIO16 to LOW for a brief moment whenever this time has passed. And this will then pull RST low, which will make the ESP restart.
+  * From the batteries plus side, we will need to draw one line to the sensors VCC and two to the ESP:
+    * One to VCC and
+    * One to EN pin, as this is like the "on switch" of the ESP: It needs to be pulled high to turn on the ESP
+  * GND needs to go to a few more places:
+    * ESP GND, obviously
+    * GPIO15 also needs to pulled low / to GND, as withour it, the ESP would work in "SD card boot mode". "Nobody" wants/needs that, so pull this pin low.
+    * To the transistors emitter
+    * And from the transistors collector to the soil moisture sensor.
+* From GPIO4 (I took GPIO4, you can choose whatever GPIO you want) through a 1k resistor to the transistors base.
+* To be able to use timed(!) deep sleep, you need to connect RST (the reset pin) to GPIO16. This if you do a timed deep sleep in code, the ESP will pull the GPIO16 to LOW for a brief moment whenever this time has passed. And this will then pull RST low, which will make the ESP restart.
 Last piece is the sensors analog out:
 
 ### ESP-12 and analog signals
