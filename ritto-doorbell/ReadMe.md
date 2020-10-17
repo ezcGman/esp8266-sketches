@@ -1,7 +1,7 @@
 # Ritto Twinbus Doorbell Sensor
 
 ## Disclaimer
-I don't take credits for the idea of this solution, as I just followed the findings and solutions posted by following people, so they deservere the credits. I just wrote the code myself, based on their posts (all in German):
+I don't take credits for the idea of this solution, as I just followed the findings and solutions posted by following people, so they deserve the credits. I just wrote the code myself, based on their posts (all in German):
 - Robin Henniges: https://robinhenniges.com/diy-smart-door-fuer-5-euro-door-bell-part-2/
 - Peter Fickinger: https://www.nicht-trivial.de/index.php/2018/02/14/ritto-zu-mqtt/
 - Thomas Abraham: http://www.deh0511.de/twinbus/
