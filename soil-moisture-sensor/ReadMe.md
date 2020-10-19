@@ -45,7 +45,7 @@ Last piece is the sensors analog out:
 As you've already seen above, we need to wire a few more things when using a bare ESP-12, compared to just a NodeMCU or D1.
 Another example is the ESPs analog pin, A0.
 First: an analog signal is nothing else than a lower or higher voltage: Higher voltage, "higher" analog signal, lower voltage, "lower" analog signal.
-The ESP can only work consome 0-1V on the analg pin. No worries: You won't roast the ESP with a signal higher than 1V (as long as it's lwoer than 3.3), but everything with above will result in "1024" when reading from this pin.
+The ESP can only work with / consume 0-1V on the analog pin. No worries: You won't roast the ESP with a signal higher than 1V (as long as it's lower than 3.3), but everything  above will result in "1024" when reading from this pin.
 So I've measured the maximum voltage of the soil moisture sensor using a multimeter and it was around 2.2 - 2.3V (I actually forgot the exact number, sorry). So we need to "convert" it down and that's what I'm doing with the resistirs conencted to the analog out of the sensor: It's a simple voltage divider. This may not be the best solution. but it fulfills my needs: The sensors output is "percentually" stepped down, where 2.3V would result in 0.9xxV, so perfect :)
 
 ## The code
