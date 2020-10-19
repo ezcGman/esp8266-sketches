@@ -33,11 +33,11 @@ As I know that obvious things don't neccessarily need to be obvious to everybody
     * One to EN pin, as this is like the "on switch" of the ESP: It needs to be pulled high to turn on the ESP
   * GND needs to go to a few more places:
     * ESP GND, obviously
-    * GPIO15 also needs to pulled low / to GND, as withour it, the ESP would work in "SD card boot mode". "Nobody" wants/needs that, so pull this pin low.
+    * GPIO15 also needs to pulled low / to GND, as without it, the ESP would work in "SD card boot mode". "Nobody" wants/needs that, so pull this pin low.
     * To the transistors emitter
     * And from the transistors collector to the soil moisture sensor.
 * From GPIO4 (I took GPIO4, you can choose whatever GPIO you want) through a 1k resistor to the transistors base.
-* To be able to use timed(!) deep sleep, you need to connect RST (the reset pin) to GPIO16. This if you do a timed deep sleep in code, the ESP will pull the GPIO16 to LOW for a brief moment whenever this time has passed. And this will then pull RST low, which will make the ESP restart.
+* To be able to use timed(!) deep sleep, you need to connect RST (the reset pin) to GPIO16. If you do a timed deep sleep in code, the ESP will pull the GPIO16 to LOW for a brief moment whenever this time has passed. And this will then pull RST low, which will make the ESP restart.
 
 Last piece is the sensors analog out:
 
