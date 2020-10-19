@@ -54,10 +54,10 @@ This is now the simple part: If you're familiar with ESP coding, this should all
 * The whole code is in setup() as the ESP goes through it when doing timed deep sleep using the GPIO16-to-RST method. Because the "wake up" is actually a reset, because the RST in is pulled low.
 * I'm using the sensor in Home Assistant through MQTT, so the code has tome MQTT logic
 * Both my Wi-Fi and MQTT connect routines have some reconnect logic.
-* GPIO4 ("D2" in Arduino IDE) is used to switch on the sensor, so this is one of the very first things the code does. This is done by pulling it HIGH, which will switch the transistor which then make the full circuit of the sensor complete, by letting the electrones flow from GND to the sensor.
+* GPIO4 ("D2" in Arduino IDE) is used to switch on the sensor, so this is one of the very first things the code does. This is done by pulling it HIGH, which will switch the transistor which then makes the full circuit of the sensor complete, by letting the electrones flow from GND to the sensor.
 * I then just read from the A0 pin, convert it in C-super-complicated-style (Python developer speaking here!) to a char and dropping it into an MQTT topic.
-* It also has some percentage calculation, which is based on my own measurements of the sensor, which is the "air value", so sensor just laying around and the "water value", which is the sensor put into a glas of clear water.
-* Another thing is a "dry/wet threshold", which is based on my girlfriend: She said "Andy, this is now dry!". And I took this as the threshold (minus a little bit for earlier alerts) for consodering a plant being dry. Note that this may very much differentiate by plant and flower soil used.
+* It also has some percentage calculation, which is based on my own measurements of the sensor. These are the "air value" (so sensor just laying around) and the "water value" (which is the sensor put into a glas of clear water).
+* Another thing is a "dry/wet threshold", which is based on my girlfriend: She said "Andy, this is now dry!". And I took this as the threshold (minus a little bit for earlier alerts) for considering a plant being dry. Note, that this may vary by plant and flower soil used.
 * Ultimately not needed, but for easier checking if the battery is empty (=no signal is sent anymore): A "last updated" timestamp also dropped into the MQTT topic
 
 ## Possible improvements
