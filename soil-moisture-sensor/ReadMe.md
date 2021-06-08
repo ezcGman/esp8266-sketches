@@ -2,7 +2,7 @@
 First, for everybody who's also playing around with these soil moisture sensors and is also quite frustrated by results not being really reliable: I feel you. And I tried to address a few of them here. So maybe this repo is for you and will help you a little bit.
 
 ## Why is my solution so cool?
-Because in my little circuit I'm using a transistir and an GPI of the ESP to turn on the sensor, when the ESP turns on. So wenn the ESP is sleeping, the sensor is off and doesn't consume any battery ;)
+Because in my little circuit I'm using a transistor and an GPI of the ESP to turn on the sensor, when the ESP turns on. So wenn the ESP is sleeping, the sensor is off and doesn't consume any battery ;)
 
 ## Which kind of sensor exist / should I use?
 ### 1. Electrical conduction sensors (Don't use: Boooo!)
